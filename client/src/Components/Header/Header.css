@@ -1,0 +1,20 @@
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    column-gap: 1.5rem;
+    padding: 1rem;
+}
+
+.header-logo {
+    margin: 0;
+}
+
+.header-link {
+    text-decoration: none;
+    font-weight: 600;
+    color: black;
+}
+.header-link-first {
+    margin-left: auto;
+}

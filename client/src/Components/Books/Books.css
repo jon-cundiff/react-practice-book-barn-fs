@@ -1,0 +1,45 @@
+.form-container {
+    margin: 0 2rem;
+}
+
+.book-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.8rem;
+    padding: 1.5rem;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.book-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-input h4 {
+    font-size: 1rem;
+    margin: 0.2rem 0;
+}
+
+.book-input :where(input, select) {
+    font-size: 0.9rem;
+    padding: 0.2rem;
+}
+
+.book-submit {
+    padding: 0.5rem;
+    border-radius: 20px;
+    color: white;
+    background-color: darkcyan;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.error-input {
+    border: 2px solid red;
+}
+
+.error-text {
+    margin: 0.1rem;
+    color: red;
+}

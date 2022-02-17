@@ -1,0 +1,11 @@
+.book-details {
+    padding: 1rem;
+}
+
+.book-details-image {
+    height: 20rem;
+}
+
+.book-details-image img {
+    height: 100%;
+}
