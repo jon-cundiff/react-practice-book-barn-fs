@@ -4,7 +4,7 @@ import fetchBook from "../util/fetchBook";
 import "./BookDetails.css";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 
-const BookDetailsPage = () => {
+const BookDetailsPage = ({ user }) => {
     const navigate = useNavigate();
     const params = useParams();
 
@@ -33,6 +33,11 @@ const BookDetailsPage = () => {
         );
     }
 
+    let allowUpdate = false;
+    if (user) {
+        allowUpdate = user.id === book.user_id;
+    }
+
     const imageSrc = book.image_url
         ? book.image_url
         : "/images/unavailable.gif";
@@ -56,9 +61,11 @@ const BookDetailsPage = () => {
                 <b>Year Released:</b>
                 {book.year}
             </p>
-            <NavLink to={`/book/${book.id}/update`}>
-                <button>Update Book</button>
-            </NavLink>
+            {allowUpdate && (
+                <NavLink to={`/book/${book.id}/update`}>
+                    <button>Update Book</button>
+                </NavLink>
+            )}
         </div>
     );
 };

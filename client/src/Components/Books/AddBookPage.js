@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BookDetailsForm from "./BookDetailsForm";
 import baseUrl from "../util/baseUrl";
 
 import "./Books.css";
 
-const AddBookPage = () => {
+const AddBookPage = ({ user }) => {
     const navigate = useNavigate();
 
     const submitBook = async (book) => {
@@ -21,6 +21,12 @@ const AddBookPage = () => {
             navigate("/");
         }
     };
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/");
+        }
+    }, [user, navigate]);
 
     return (
         <div className="form-container">

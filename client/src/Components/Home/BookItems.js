@@ -1,9 +1,14 @@
 import React from "react";
 import BookItem from "./BookItem";
 
-const BookItems = ({ books, onBookUpdate }) => {
+const BookItems = ({ user, books, onBookUpdate }) => {
     const bookItems = books.map((book) => (
-        <BookItem book={book} onBookUpdate={onBookUpdate} key={book.id} />
+        <BookItem
+            user={user}
+            book={book}
+            onBookUpdate={onBookUpdate}
+            key={book.id}
+        />
     ));
     return <div className="book-items">{bookItems}</div>;
 };

@@ -1,6 +1,6 @@
 import React from "react";
 
-const BookInput = ({ label, name, value, onValueChange, error, type }) => {
+const FormInput = ({ label, name, value, onValueChange, error, type }) => {
     const inputClass = error ? "error-input" : "";
     return (
         <div className="book-input">
@@ -18,4 +18,4 @@ const BookInput = ({ label, name, value, onValueChange, error, type }) => {
     );
 };
 
-export default BookInput;
+export default FormInput;

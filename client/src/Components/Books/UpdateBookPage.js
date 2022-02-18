@@ -6,15 +6,15 @@ import fetchBook from "../util/fetchBook";
 
 import "./Books.css";
 
-const UpdateBookPage = () => {
+const UpdateBookPage = ({ user }) => {
     const navigate = useNavigate();
     const params = useParams();
     const [book, setBook] = useState(null);
 
-    const updateBook = async (book) => {
+    const updateBook = async (bookInfo) => {
         const { id } = book;
         const body = {
-            ...book,
+            ...bookInfo,
             id,
         };
         try {
@@ -31,19 +31,24 @@ const UpdateBookPage = () => {
     };
 
     useEffect(() => {
-        const getBook = async () => {
-            try {
-                const fetchedBook = await fetchBook(params.bookId);
-                setBook(fetchedBook);
-            } catch {
-                navigate("/");
-            }
-        };
+        const bookNotMatched = user && book ? user.id !== book.user_id : false;
+        if (!user || bookNotMatched) {
+            navigate("/");
+        } else {
+            const getBook = async () => {
+                try {
+                    const fetchedBook = await fetchBook(params.bookId);
+                    setBook(fetchedBook);
+                } catch {
+                    navigate("/");
+                }
+            };
 
-        if (!book) {
-            getBook();
+            if (!book) {
+                getBook();
+            }
         }
-    }, [navigate, params, book]);
+    }, [navigate, params, book, user]);
 
     if (!book) {
         return (
@@ -54,7 +59,6 @@ const UpdateBookPage = () => {
         );
     }
 
-    console.log(book);
     return (
         <div className="form-container">
             <h1>Update Book</h1>

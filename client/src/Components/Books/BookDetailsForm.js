@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BookGenreSelect from "./BookGenreSelect";
-import BookInput from "./BookInput";
+import FormInput from "../Common/FormInput";
 
 const BookDetailsForm = ({ book: bookProp, handleBookSubmission }) => {
     const [book, setBook] = useState({
@@ -66,21 +66,21 @@ const BookDetailsForm = ({ book: bookProp, handleBookSubmission }) => {
 
     return (
         <div className="book-form">
-            <BookInput
+            <FormInput
                 label="Title"
                 value={book.title}
                 error={errors.title}
                 name="title"
                 onValueChange={handleInputChange}
             />
-            <BookInput
+            <FormInput
                 label="Author (separate multiple authors with a comma)"
                 value={book.author}
                 error={errors.author}
                 name="author"
                 onValueChange={handleInputChange}
             />
-            <BookInput
+            <FormInput
                 label="Publisher"
                 value={book.publisher}
                 error={errors.publisher}
@@ -92,7 +92,7 @@ const BookDetailsForm = ({ book: bookProp, handleBookSubmission }) => {
                 error={errors.genre}
                 onValueChange={handleInputChange}
             />
-            <BookInput
+            <FormInput
                 label="Year"
                 value={book.year}
                 error={errors.year}
@@ -100,7 +100,7 @@ const BookDetailsForm = ({ book: bookProp, handleBookSubmission }) => {
                 type="number"
                 onValueChange={handleInputChange}
             />
-            <BookInput
+            <FormInput
                 label="Image URL"
                 value={book.imageUrl}
                 error={errors.imageUrl}

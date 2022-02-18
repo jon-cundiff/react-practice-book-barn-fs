@@ -2,7 +2,13 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import baseUrl from "../util/baseUrl";
 
-const BookItem = ({ book, onBookUpdate }) => {
+const BookItem = ({ user, book, onBookUpdate }) => {
+    let allowDelete = false;
+
+    if (user) {
+        allowDelete = user.id === book.user_id;
+    }
+
     const handleDeleteBook = async () => {
         const body = {
             id: book.id,
@@ -39,12 +45,14 @@ const BookItem = ({ book, onBookUpdate }) => {
                         Details
                     </button>
                 </NavLink>
-                <button
-                    className="book-button book-button-delete"
-                    onClick={handleDeleteBook}
-                >
-                    Delete
-                </button>
+                {allowDelete && (
+                    <button
+                        className="book-button book-button-delete"
+                        onClick={handleDeleteBook}
+                    >
+                        Delete
+                    </button>
+                )}
             </div>
         </div>
     );
