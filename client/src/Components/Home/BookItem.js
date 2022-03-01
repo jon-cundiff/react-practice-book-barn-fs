@@ -1,15 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import baseUrl from "../util/baseUrl";
+import { addBookToCart } from "../../store/actions/actionCreators";
 
 const BookItem = ({ book, onBookUpdate }) => {
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     let allowDelete = false;
 
     if (user) {
         allowDelete = user.id === book.user_id;
     }
+
+    const handleAddToCart = () => {
+        dispatch(addBookToCart(book));
+    };
 
     const handleDeleteBook = async () => {
         const body = {
@@ -41,6 +47,14 @@ const BookItem = ({ book, onBookUpdate }) => {
             <div className="book-info">
                 <p>{book.title}</p>
             </div>
+            {user && (
+                <button
+                    className="book-button book-button-add"
+                    onClick={handleAddToCart}
+                >
+                    Add to Cart
+                </button>
+            )}
             <div className="book-buttons">
                 <NavLink to={`/book/${book.id}`} className="book-link">
                     <button className="book-button book-button-details">
