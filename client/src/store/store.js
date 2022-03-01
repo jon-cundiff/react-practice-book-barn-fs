@@ -20,6 +20,11 @@ const reducer = (state = initialState, action) => {
                 isAuthenticated: false,
                 user: action.payload,
             };
+        case actionTypes.ADD_ITEM:
+            return {
+                ...state,
+                cart: [...state.cart, action.payload],
+            };
         default:
             return state;
     }

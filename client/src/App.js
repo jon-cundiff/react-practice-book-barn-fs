@@ -11,18 +11,12 @@ import Login from "./Components/Login/Login";
 import Signup from "./Components/Login/Signup";
 
 const App = () => {
-    const [user, setUser] = useState(null);
-
-    const handleLogout = () => {
-        setUser(null);
-    };
-
     return (
         <div className="App">
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/add-book" element={<AddBookPage user={user} />} />
+                <Route path="/add-book" element={<AddBookPage />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/book/:bookId" element={<BookDetailsPage />} />
                 <Route
