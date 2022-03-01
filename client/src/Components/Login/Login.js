@@ -2,18 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserInfoForm from "./UserInfoForm";
 import baseUrl from "../util/baseUrl";
+import { authenticateUser } from "../../store/actions/actionCreators";
 
 import "./Auth.css";
+import { useDispatch, useSelector } from "react-redux";
 
-const Login = ({ user, login }) => {
+const Login = ({ login }) => {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector((state) => state.isAuthenticated);
 
     useEffect(() => {
-        if (user) {
+        if (isAuthenticated) {
             navigate("/");
         }
-    }, [user, navigate]);
+    }, [isAuthenticated, navigate]);
 
     const params = useParams();
     const errorCode = params.errorCode;
@@ -44,7 +48,7 @@ const Login = ({ user, login }) => {
 
             const userResult = await userResp.json();
             navigate("/");
-            login(userResult);
+            dispatch(authenticateUser(userResult));
         } catch (err) {
             console.log(err);
             setError("Error Logging In.");
