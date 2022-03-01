@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import BookItems from "./BookItems";
 import baseUrl from "../util/baseUrl";
 
 import "./Home.css";
 
-const Profile = ({ user }) => {
+const Profile = () => {
+    const user = useSelector((state) => state.user);
     const navigate = useNavigate();
     const [books, setBooks] = useState([]);
     const booksFetched = useRef(false);
