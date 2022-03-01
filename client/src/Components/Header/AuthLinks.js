@@ -1,7 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { logoutUser } from "../../store/actions/actionCreators";
 
-const AuthLinks = ({ logout, name }) => {
+const AuthLinks = ({ name }) => {
+    const dispatch = useDispatch();
     return (
         <>
             <NavLink to="/add-book" className="header-link header-link-first">
@@ -10,7 +13,7 @@ const AuthLinks = ({ logout, name }) => {
             <NavLink to="/profile" className="header-link">
                 {name}
             </NavLink>
-            <button onClick={logout}>Log Out</button>
+            <button onClick={() => dispatch(logoutUser())}>Log Out</button>
         </>
     );
 };

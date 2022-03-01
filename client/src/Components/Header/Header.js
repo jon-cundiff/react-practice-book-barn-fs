@@ -1,13 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import AuthLinks from "./AuthLinks";
 import UnauthLinks from "./UnauthLinks";
 
 import "./Header.css";
 
-const Header = ({ user, logout }) => {
+const Header = () => {
+    const user = useSelector((state) => state.user);
     const headerLinks = user ? (
-        <AuthLinks logout={logout} name={user.username} />
+        <AuthLinks name={user.username} />
     ) : (
         <UnauthLinks />
     );
