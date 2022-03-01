@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import UserInfoForm from "./UserInfoForm";
 import baseUrl from "../util/baseUrl";
 import { authenticateUser } from "../../store/actions/actionCreators";
 
 import "./Auth.css";
-import { useDispatch, useSelector } from "react-redux";
 
-const Login = ({ login }) => {
+const Login = () => {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
@@ -47,8 +47,8 @@ const Login = ({ login }) => {
             }
 
             const userResult = await userResp.json();
-            navigate("/");
             dispatch(authenticateUser(userResult));
+            navigate("/");
         } catch (err) {
             console.log(err);
             setError("Error Logging In.");

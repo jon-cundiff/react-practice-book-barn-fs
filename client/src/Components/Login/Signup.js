@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import UserInfoForm from "./UserInfoForm";
 import baseUrl from "../util/baseUrl";
+import { authenticateUser } from "../../store/actions/actionCreators";
 
 import "./Auth.css";
 
-const Signup = ({ user, login }) => {
+const Signup = () => {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
+    const dispatch = useDispatch();
+    const { isAuthenticated } = useSelector((state) => state.isAuthenticated);
 
     useEffect(() => {
-        if (user) {
+        if (isAuthenticated) {
             navigate("/");
         }
-    }, [user, navigate]);
+    }, [isAuthenticated, navigate]);
 
     const handleSignupSubmit = async (userInfo) => {
         try {
@@ -31,7 +35,7 @@ const Signup = ({ user, login }) => {
 
             const userResult = await userResp.json();
             navigate("/");
-            login(userResult);
+            dispatch(authenticateUser(userResult));
         } catch (err) {
             console.log(err);
             setError("Username taken");

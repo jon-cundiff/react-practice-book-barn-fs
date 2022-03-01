@@ -44,14 +44,8 @@ const App = () => {
                         <UpdateBookPage user={user} logout={handleLogout} />
                     }
                 />
-                <Route
-                    path="/login"
-                    element={<Login user={user} login={handleLogin} />}
-                />
-                <Route
-                    path="/signup"
-                    element={<Signup user={user} login={handleLogin} />}
-                />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
         </div>
     );
