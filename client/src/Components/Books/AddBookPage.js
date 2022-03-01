@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import BookDetailsForm from "./BookDetailsForm";
 import baseUrl from "../util/baseUrl";
 
 import "./Books.css";
 
-const AddBookPage = ({ user }) => {
+const AddBookPage = () => {
+    const user = useSelector((state) => state.user);
     const navigate = useNavigate();
 
     const submitBook = async (book) => {

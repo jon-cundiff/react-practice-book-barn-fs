@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import fetchBook from "../util/fetchBook";
 
 import "./BookDetails.css";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const BookDetailsPage = () => {
     const navigate = useNavigate();

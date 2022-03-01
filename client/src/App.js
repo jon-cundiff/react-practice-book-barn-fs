@@ -22,10 +22,7 @@ const App = () => {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route
-                    path="/add-book"
-                    element={<AddBookPage user={user} logout={handleLogout} />}
-                />
+                <Route path="/add-book" element={<AddBookPage user={user} />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/book/:bookId" element={<BookDetailsPage />} />
                 <Route
