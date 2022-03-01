@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import BookDetailsForm from "./BookDetailsForm";
 import baseUrl from "../util/baseUrl";
 import fetchBook from "../util/fetchBook";
 
 import "./Books.css";
 
-const UpdateBookPage = ({ user }) => {
+const UpdateBookPage = () => {
+    const user = useSelector((state) => state.user);
     const navigate = useNavigate();
     const params = useParams();
     const [book, setBook] = useState(null);

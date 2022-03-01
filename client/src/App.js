@@ -27,9 +27,7 @@ const App = () => {
                 <Route path="/book/:bookId" element={<BookDetailsPage />} />
                 <Route
                     path="/book/:bookId/update"
-                    element={
-                        <UpdateBookPage user={user} logout={handleLogout} />
-                    }
+                    element={<UpdateBookPage />}
                 />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
