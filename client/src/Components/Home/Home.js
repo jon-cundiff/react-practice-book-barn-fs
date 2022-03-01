@@ -5,7 +5,7 @@ import baseUrl from "../util/baseUrl";
 
 import "./Home.css";
 
-const Home = ({ user }) => {
+const Home = () => {
     const [books, setBooks] = useState([]);
 
     const getBooks = async (genre) => {
@@ -30,7 +30,7 @@ const Home = ({ user }) => {
                 <option value="">Filter by Genre</option>
                 <GenreOptions />
             </select>
-            <BookItems user={user} books={books} onBookUpdate={getBooks} />
+            <BookItems books={books} onBookUpdate={getBooks} />
         </div>
     );
 };

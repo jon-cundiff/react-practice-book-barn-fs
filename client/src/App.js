@@ -17,15 +17,11 @@ const App = () => {
         setUser(null);
     };
 
-    const handleLogin = (user) => {
-        setUser(user);
-    };
-
     return (
         <div className="App">
-            <Header user={user} logout={handleLogout} />
+            <Header />
             <Routes>
-                <Route path="/" element={<Home user={user} />} />
+                <Route path="/" element={<Home />} />
                 <Route
                     path="/add-book"
                     element={<AddBookPage user={user} logout={handleLogout} />}

@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import baseUrl from "../util/baseUrl";
 
-const BookItem = ({ user, book, onBookUpdate }) => {
+const BookItem = ({ book, onBookUpdate }) => {
+    const user = useSelector((state) => state.user);
     let allowDelete = false;
 
     if (user) {
