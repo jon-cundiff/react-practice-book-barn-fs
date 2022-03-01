@@ -3,10 +3,12 @@ import fetchBook from "../util/fetchBook";
 
 import "./BookDetails.css";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const BookDetailsPage = ({ user }) => {
+const BookDetailsPage = () => {
     const navigate = useNavigate();
     const params = useParams();
+    const user = useSelector((state) => state.user);
 
     const [book, setBook] = useState(null);
 

@@ -26,14 +26,8 @@ const App = () => {
                     path="/add-book"
                     element={<AddBookPage user={user} logout={handleLogout} />}
                 />
-                <Route
-                    path="/profile"
-                    element={<Profile user={user} logout={handleLogout} />}
-                />
-                <Route
-                    path="/book/:bookId"
-                    element={<BookDetailsPage user={user} />}
-                />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/book/:bookId" element={<BookDetailsPage />} />
                 <Route
                     path="/book/:bookId/update"
                     element={
