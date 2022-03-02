@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
+
 import AddBookPage from "./Components/Books/AddBookPage";
 import BookDetailsPage from "./Components/Books/BookDetailsPage";
 import UpdateBookPage from "./Components/Books/UpdateBookPage";

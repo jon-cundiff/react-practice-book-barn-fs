@@ -44,7 +44,6 @@
     font-size: 0.85rem;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 0.3rem;
 }
 
 .book-buttons {
@@ -67,6 +66,16 @@
 .book-button-add {
     width: 90%;
     background-color: navy;
+    margin: 0.3rem;
+}
+
+.book-button-favorite {
+    width: 90%;
+    background-color: darkgoldenrod;
+}
+
+.book-button-favorite.added {
+    background-color: darkgreen;
 }
 
 .book-button-details {
