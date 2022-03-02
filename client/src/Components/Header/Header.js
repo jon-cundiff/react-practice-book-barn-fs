@@ -7,7 +7,7 @@ import UnauthLinks from "./UnauthLinks";
 import "./Header.css";
 
 const Header = () => {
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.auth.user);
     const headerLinks = user ? (
         <AuthLinks name={user.username} />
     ) : (

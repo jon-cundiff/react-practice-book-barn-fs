@@ -7,7 +7,7 @@ import baseUrl from "../util/baseUrl";
 import "./Books.css";
 
 const AddBookPage = () => {
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
 
     const submitBook = async (book) => {
@@ -16,6 +16,7 @@ const AddBookPage = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    token: user.token,
                 },
                 body: JSON.stringify(book),
             });

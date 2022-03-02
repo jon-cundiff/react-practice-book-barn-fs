@@ -5,7 +5,7 @@ import { logoutUser } from "../../store/actions/actionCreators";
 
 const AuthLinks = ({ name }) => {
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart);
+    const cart = useSelector((state) => state.cart.cart);
     return (
         <>
             <NavLink to="/add-book" className="header-link header-link-first">

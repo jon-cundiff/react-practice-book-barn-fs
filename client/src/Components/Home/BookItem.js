@@ -6,7 +6,7 @@ import { addBookToCart } from "../../store/actions/actionCreators";
 
 const BookItem = ({ book, onBookUpdate }) => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.auth.user);
     let allowDelete = false;
 
     if (user) {
@@ -27,6 +27,7 @@ const BookItem = ({ book, onBookUpdate }) => {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
+                    token: user.token,
                 },
                 body: JSON.stringify(body),
             });

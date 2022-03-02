@@ -7,7 +7,7 @@ import baseUrl from "../util/baseUrl";
 import "./Home.css";
 
 const Profile = () => {
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
     const [books, setBooks] = useState([]);
     const booksFetched = useRef(false);

@@ -8,7 +8,7 @@ import "./BookDetails.css";
 const BookDetailsPage = () => {
     const navigate = useNavigate();
     const params = useParams();
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.auth.user);
 
     const [book, setBook] = useState(null);
 

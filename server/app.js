@@ -15,14 +15,14 @@ app.use(cors());
 app.use(express.json());
 
 const validateToken = (req, res, next) => {
-    const token = req.headers;
+    const { token } = req.headers;
     if (!token) {
         return res
             .status(403)
             .json({ notAuthorized: "Please login to use this feature." });
     }
 
-    const user = loggedInUsers.find((user) => (user.token = token));
+    const user = loggedInUsers.find((user) => user.token === token);
     if (!user) {
         return res
             .status(403)

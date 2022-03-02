@@ -8,7 +8,7 @@ import fetchBook from "../util/fetchBook";
 import "./Books.css";
 
 const UpdateBookPage = () => {
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
     const params = useParams();
     const [book, setBook] = useState(null);
@@ -24,6 +24,7 @@ const UpdateBookPage = () => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    token: user.token,
                 },
                 body: JSON.stringify(body),
             });

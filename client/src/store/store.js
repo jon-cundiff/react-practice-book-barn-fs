@@ -1,33 +1,17 @@
-import * as actionTypes from "./actions/actionTypes";
+import { createStore, combineReducers } from "redux";
+import authReducer from "./reducers/authReducer";
+import cartReducer from "./reducers/cartReducer";
+import favoritesReducer from "./reducers/favoritesReducer";
 
-const initialState = {
-    cart: [],
-    isAuthenticated: false,
-    user: null,
-};
+const rootReducer = combineReducers({
+    auth: authReducer,
+    cart: cartReducer,
+    favorites: favoritesReducer,
+});
 
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.AUTHENTICATE_USER:
-            return {
-                ...state,
-                isAuthenticated: true,
-                user: action.payload,
-            };
-        case actionTypes.LOGOUT_USER:
-            return {
-                ...state,
-                isAuthenticated: false,
-                user: action.payload,
-            };
-        case actionTypes.ADD_ITEM:
-            return {
-                ...state,
-                cart: [...state.cart, action.payload],
-            };
-        default:
-            return state;
-    }
-};
+const store = createStore(
+    rootReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
-export default reducer;
+export default store;

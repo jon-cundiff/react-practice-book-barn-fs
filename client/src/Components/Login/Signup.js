@@ -11,7 +11,9 @@ const Signup = () => {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
-    const { isAuthenticated } = useSelector((state) => state.isAuthenticated);
+    const { isAuthenticated } = useSelector(
+        (state) => state.auth.isAuthenticated
+    );
 
     useEffect(() => {
         if (isAuthenticated) {
