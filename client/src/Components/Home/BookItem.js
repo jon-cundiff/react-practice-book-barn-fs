@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import baseUrl from "../util/baseUrl";
-import { addBookToCart } from "../../store/actions/actionCreators";
+import { addBookToCart, setBook } from "../../store/actions/actionCreators";
 import FavoriteButton from "./FavoriteButton";
 
 const BookItem = ({ book, onBookUpdate }) => {
@@ -63,7 +63,10 @@ const BookItem = ({ book, onBookUpdate }) => {
 
             <div className="book-buttons">
                 <NavLink to={`/book/${book.id}`} className="book-link">
-                    <button className="book-button book-button-details">
+                    <button
+                        className="book-button book-button-details"
+                        onClick={() => dispatch(setBook(book))}
+                    >
                         Details
                     </button>
                 </NavLink>
