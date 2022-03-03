@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BookDetailsForm from "./BookDetailsForm";
 import baseUrl from "../util/baseUrl";
-import fetchBook from "../util/fetchBook";
 
 import "./Books.css";
+import { getBook } from "../../store/actions/actionCreators";
 
 const UpdateBookPage = () => {
-    const user = useSelector((state) => state.auth.user);
     const navigate = useNavigate();
     const params = useParams();
-    const [book, setBook] = useState(null);
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.user);
+    const books = useSelector((state) => state.books);
+    const { selectedBook: book, fetchError } = books;
 
     const updateBook = async (bookInfo) => {
         const { id } = book;
@@ -38,20 +40,13 @@ const UpdateBookPage = () => {
         if (!user || bookNotMatched) {
             navigate("/");
         } else {
-            const getBook = async () => {
-                try {
-                    const fetchedBook = await fetchBook(params.bookId);
-                    setBook(fetchedBook);
-                } catch {
-                    navigate("/");
-                }
-            };
-
-            if (!book) {
-                getBook();
+            if (fetchError) {
+                navigate("/");
+            } else if (!book || book.id !== params.bookId) {
+                dispatch(getBook(params.bookId));
             }
         }
-    }, [navigate, params, book, user]);
+    }, [navigate, params, book, user, fetchError, dispatch]);
 
     if (!book) {
         return (
