@@ -15,6 +15,24 @@ export const setBooks = (books) => {
     };
 };
 
+export const getUserBooks = (token) => async (dispatch) => {
+    const searchUrl = `${baseUrl}/profile`;
+    const booksResp = await fetch(searchUrl, {
+        headers: {
+            token: token,
+        },
+    });
+    const booksJson = await booksResp.json();
+    dispatch(setUserBooks(booksJson.books));
+};
+
+export const setUserBooks = (books) => {
+    return {
+        type: actionTypes.SET_USER_BOOKS,
+        payload: books,
+    };
+};
+
 export const authenticateUser = (user) => {
     return {
         type: actionTypes.AUTHENTICATE_USER,

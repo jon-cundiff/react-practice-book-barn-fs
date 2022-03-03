@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../store/actions/actionCreators";
 import GenreOptions from "../Common/GenreOptions";
@@ -24,7 +24,10 @@ const Home = () => {
                 <option value="">Filter by Genre</option>
                 <GenreOptions />
             </select>
-            <BookItems books={books} onBookUpdate={getBooks} />
+            <BookItems
+                books={books}
+                onBookUpdate={() => dispatch(getBooks())}
+            />
         </div>
     );
 };

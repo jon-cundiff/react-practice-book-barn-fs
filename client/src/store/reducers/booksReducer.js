@@ -13,6 +13,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 allBooks: action.payload,
             };
+        case actionTypes.SET_USER_BOOKS:
+            return {
+                ...state,
+                userBooks: action.payload,
+            };
         default:
             return state;
     }
