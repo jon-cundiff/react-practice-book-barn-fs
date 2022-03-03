@@ -1,4 +1,19 @@
 import * as actionTypes from "./actionTypes";
+import baseUrl from "../../Components/util/baseUrl";
+
+export const getBooks = (genre) => async (dispatch) => {
+    const searchUrl = genre ? `${baseUrl}/genre/${genre}` : baseUrl;
+    const booksResp = await fetch(searchUrl);
+    const booksJson = await booksResp.json();
+    dispatch(setBooks(booksJson.books));
+};
+
+export const setBooks = (books) => {
+    return {
+        type: actionTypes.SET_BOOKS,
+        payload: books,
+    };
+};
 
 export const authenticateUser = (user) => {
     return {
