@@ -1,31 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import fetchBook from "../util/fetchBook";
+import { useDispatch, useSelector } from "react-redux";
+import { getBook } from "../../store/actions/actionCreators";
 
 import "./BookDetails.css";
 
 const BookDetailsPage = () => {
     const navigate = useNavigate();
     const params = useParams();
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
+    const books = useSelector((state) => state.books);
 
-    const [book, setBook] = useState(null);
+    const { selectedBook: book, fetchError } = books;
 
     useEffect(() => {
-        const getBook = async () => {
-            try {
-                const fetchedBook = await fetchBook(params.bookId);
-                setBook(fetchedBook);
-            } catch {
-                navigate("/");
-            }
-        };
-
-        if (!book) {
-            getBook();
+        if (fetchError) {
+            navigate("/");
+        } else if (!book || book.id !== params.bookId) {
+            dispatch(getBook(params.bookId));
         }
-    }, [navigate, params, book]);
+    }, [navigate, params, book, dispatch, fetchError]);
 
     if (!book) {
         return (

@@ -4,6 +4,7 @@ const initialState = {
     allBooks: [],
     selectedBook: [],
     userBooks: [],
+    fetchError: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +18,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 userBooks: action.payload,
+            };
+        case actionTypes.SET_BOOK:
+            return {
+                ...state,
+                selectedBook: action.payload,
+            };
+        case actionTypes.SET_FETCH_ERROR:
+            return {
+                ...state,
+                fetchError: action.payload,
             };
         default:
             return state;
