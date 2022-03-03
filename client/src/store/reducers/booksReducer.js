@@ -8,6 +8,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.SET_BOOKS:
+            return {
+                ...state,
+                allBooks: action.payload,
+            };
         default:
             return state;
     }
