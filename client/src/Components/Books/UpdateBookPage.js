@@ -26,7 +26,7 @@ const UpdateBookPage = () => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    token: user.token,
+                    authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify(body),
             });

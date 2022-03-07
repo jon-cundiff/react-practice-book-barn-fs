@@ -47,6 +47,7 @@ const Login = () => {
             }
 
             const userResult = await userResp.json();
+            localStorage.setItem("jwt", JSON.stringify(userResult));
             dispatch(authenticateUser(userResult));
             navigate("/");
         } catch (err) {

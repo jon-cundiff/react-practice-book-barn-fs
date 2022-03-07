@@ -16,7 +16,7 @@ const AddBookPage = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    token: user.token,
+                    authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify(book),
             });

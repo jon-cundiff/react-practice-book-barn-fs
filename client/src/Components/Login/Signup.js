@@ -37,6 +37,7 @@ const Signup = () => {
 
             const userResult = await userResp.json();
             navigate("/");
+            localStorage.setItem("jwt", JSON.stringify(userResult));
             dispatch(authenticateUser(userResult));
         } catch (err) {
             console.log(err);

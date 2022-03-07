@@ -6,6 +6,10 @@ import { logoutUser } from "../../store/actions/actionCreators";
 const AuthLinks = ({ name }) => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.cart);
+    const handleLogOut = () => {
+        localStorage.removeItem("jwt");
+        dispatch(logoutUser());
+    };
     return (
         <>
             <NavLink to="/add-book" className="header-link header-link-first">
@@ -14,7 +18,7 @@ const AuthLinks = ({ name }) => {
             <NavLink to="/profile" className="header-link">
                 {name}
             </NavLink>
-            <button onClick={() => dispatch(logoutUser())}>Log Out</button>
+            <button onClick={handleLogOut}>Log Out</button>
             <h4>Cart ({cart.length})</h4>
         </>
     );

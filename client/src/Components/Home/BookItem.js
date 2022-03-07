@@ -28,7 +28,7 @@ const BookItem = ({ book, onBookUpdate }) => {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    token: user.token,
+                    authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify(body),
             });

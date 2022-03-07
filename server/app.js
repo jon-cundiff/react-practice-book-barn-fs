@@ -2,35 +2,38 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const models = require("./models");
 
 const PORT = process.env.PORT || 8080;
 const SALT = bcrypt.genSaltSync(10);
-
-const loggedInUsers = [];
+const SECRET = process.env.SECRET;
 
 app.use(cors());
 app.use(express.json());
 
 const validateToken = (req, res, next) => {
-    const { token } = req.headers;
-    if (!token) {
+    const { authorization } = req.headers;
+    if (authorization) {
+        const token = authorization.split(" ")[1];
+        jwt.verify(token, SECRET, (err, decoded) => {
+            if (err) {
+                return res.status(403).json({
+                    notAuthorized: "Please login to use this feature.",
+                });
+            } else {
+                console.log("hi");
+                req.userId = decoded.userId;
+                next();
+            }
+        });
+    } else {
         return res
             .status(403)
             .json({ notAuthorized: "Please login to use this feature." });
     }
-
-    const user = loggedInUsers.find((user) => user.token === token);
-    if (!user) {
-        return res
-            .status(403)
-            .json({ loginExpired: "Please re-login to use this feature" });
-    }
-
-    req.userId = user.id;
-    next();
 };
 
 app.get("/", async (req, res) => {
@@ -148,13 +151,9 @@ app.post("/login", async (req, res) => {
             throw new Error("Passwords don't match.");
         }
 
-        const token = await bcrypt.hash(
-            `${username}-${pwHash.substring(0, 20)}`,
-            SALT
-        );
+        const token = jwt.sign({ userId: user.id }, SECRET);
 
         const userObj = { username, token, id: user.id };
-        loggedInUsers.push(userObj);
         res.json(userObj);
     } catch (err) {
         console.log(err);
@@ -171,12 +170,8 @@ app.post("/signup", async (req, res) => {
             password: hash,
         });
 
-        const token = await bcrypt.hash(
-            `${username}-${hash.substring(0, 20)}`,
-            SALT
-        );
+        const token = jwt.sign({ userId: user.id }, SECRET);
         const userObj = { username, token, id: user.id };
-        loggedInUsers.push(userObj);
         res.json(userObj);
     } catch {
         res.status(400).json({ userExists: "This username has been taken" });

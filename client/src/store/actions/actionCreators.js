@@ -26,7 +26,7 @@ export const getUserBooks = (token) => async (dispatch) => {
     const searchUrl = `${baseUrl}/profile`;
     const booksResp = await fetch(searchUrl, {
         headers: {
-            token: token,
+            authorization: `Bearer ${token}`,
         },
     });
     const booksJson = await booksResp.json();
