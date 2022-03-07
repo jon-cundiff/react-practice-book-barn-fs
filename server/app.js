@@ -162,11 +162,12 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
     try {
         const hash = await bcrypt.hash(password, SALT);
         const user = await models.User.create({
             username,
+            email,
             password: hash,
         });
 

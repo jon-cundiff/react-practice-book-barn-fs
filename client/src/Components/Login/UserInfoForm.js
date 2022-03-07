@@ -5,6 +5,7 @@ const UserInfoForm = ({ login, handleAuthSubmit }) => {
     const [auth, setAuth] = useState({
         username: "",
         password: "",
+        email: "",
     });
 
     const [errors, setErrors] = useState({});
@@ -17,7 +18,7 @@ const UserInfoForm = ({ login, handleAuthSubmit }) => {
     };
 
     const validateInput = () => {
-        const { username, password } = auth;
+        const { username, password, email } = auth;
         const errors = {};
         if (!username) {
             errors.username = "Username must not be blank!";
@@ -25,6 +26,9 @@ const UserInfoForm = ({ login, handleAuthSubmit }) => {
 
         if (!password) {
             errors.password = "Password must not be blank!";
+        }
+        if (!email && !login) {
+            errors.email = "Email must not be blank!";
         }
 
         if (JSON.stringify(errors) !== "{}") {
@@ -59,6 +63,16 @@ const UserInfoForm = ({ login, handleAuthSubmit }) => {
                 type="password"
                 onValueChange={handleInputChange}
             />
+            {!login && (
+                <FormInput
+                    label="Email"
+                    value={auth.email}
+                    error={errors.email}
+                    name="email"
+                    type="email"
+                    onValueChange={handleInputChange}
+                />
+            )}
             <button className="book-submit" onClick={handleSubmit}>
                 {login ? "Login" : "Sign Up"}
             </button>
