@@ -57,6 +57,38 @@ export const setBook = (book) => {
     };
 };
 
+export const updateEmail = (email, user) => async (dispatch) => {
+    const body = { email };
+    const response = await fetch(`${baseUrl}/email`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(body),
+    });
+    if (response.status === 200) {
+        const newUser = {
+            ...user,
+            email,
+        };
+        dispatch(setToken(newUser));
+    } else {
+        dispatch(setUserError());
+    }
+};
+
+export const setUserError = () => {
+    return {
+        type: actionTypes.SET_USER_ERROR,
+    };
+};
+
+export const setToken = (user) => (dispatch) => {
+    localStorage.setItem("jwt", JSON.stringify(user));
+    dispatch(authenticateUser(user));
+};
+
 export const authenticateUser = (user) => {
     return {
         type: actionTypes.AUTHENTICATE_USER,

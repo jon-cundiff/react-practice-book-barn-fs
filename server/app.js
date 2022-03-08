@@ -24,7 +24,6 @@ const validateToken = (req, res, next) => {
                     notAuthorized: "Please login to use this feature.",
                 });
             } else {
-                console.log("hi");
                 req.userId = decoded.userId;
                 next();
             }
@@ -136,6 +135,24 @@ app.delete("/delete-book", validateToken, async (req, res) => {
     }
 });
 
+app.post("/email", validateToken, async (req, res) => {
+    const { email } = req.body;
+    try {
+        await models.User.update(
+            { email },
+            {
+                where: {
+                    id: req.userId,
+                },
+            }
+        );
+
+        res.json({ userUpdated: true });
+    } catch {
+        res.status(400).json({ error: "Error updating email" });
+    }
+});
+
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     const user = await models.User.findOne({
@@ -152,8 +169,7 @@ app.post("/login", async (req, res) => {
         }
 
         const token = jwt.sign({ userId: user.id }, SECRET);
-
-        const userObj = { username, token, id: user.id };
+        const userObj = { username, token, id: user.id, email: user.email };
         res.json(userObj);
     } catch (err) {
         console.log(err);
@@ -172,7 +188,7 @@ app.post("/signup", async (req, res) => {
         });
 
         const token = jwt.sign({ userId: user.id }, SECRET);
-        const userObj = { username, token, id: user.id };
+        const userObj = { username, token, id: user.id, email };
         res.json(userObj);
     } catch {
         res.status(400).json({ userExists: "This username has been taken" });

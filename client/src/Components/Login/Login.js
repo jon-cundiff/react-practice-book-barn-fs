@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import UserInfoForm from "./UserInfoForm";
 import baseUrl from "../util/baseUrl";
-import { authenticateUser } from "../../store/actions/actionCreators";
+import { setToken } from "../../store/actions/actionCreators";
 
 import "./Auth.css";
 
@@ -47,8 +47,7 @@ const Login = () => {
             }
 
             const userResult = await userResp.json();
-            localStorage.setItem("jwt", JSON.stringify(userResult));
-            dispatch(authenticateUser(userResult));
+            dispatch(setToken(userResult));
             navigate("/");
         } catch (err) {
             console.log(err);
