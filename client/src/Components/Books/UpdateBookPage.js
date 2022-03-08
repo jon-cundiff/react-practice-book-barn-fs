@@ -36,8 +36,8 @@ const UpdateBookPage = () => {
     };
 
     useEffect(() => {
-        const bookNotMatched = user && book ? user.id !== book.user_id : false;
-        if (!user || bookNotMatched) {
+        const bookNotMatched = book ? user.id !== book.user_id : false;
+        if (bookNotMatched) {
             navigate("/");
         } else {
             if (fetchError) {

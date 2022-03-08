@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import AddBookPage from "./Components/Books/AddBookPage";
@@ -10,30 +9,55 @@ import Home from "./Components/Home/Home";
 import Profile from "./Components/Home/Profile";
 import Login from "./Components/Login/Login";
 import Signup from "./Components/Login/Signup";
-import { authenticateUser } from "./store/actions/actionCreators";
+import ProtectedRoute from "./Components/util/ProtectedRoute";
 
 const App = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        const user = localStorage.getItem("jwt");
-        if (user) {
-            dispatch(authenticateUser(JSON.parse(user)));
-        }
-    }, []);
     return (
         <div className="App">
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/add-book" element={<AddBookPage />} />
-                <Route path="/profile" element={<Profile />} />
+                <Route
+                    path="/add-book"
+                    element={
+                        <ProtectedRoute auth>
+                            <AddBookPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/profile"
+                    element={
+                        <ProtectedRoute auth>
+                            <Profile />
+                        </ProtectedRoute>
+                    }
+                />
                 <Route path="/book/:bookId" element={<BookDetailsPage />} />
                 <Route
                     path="/book/:bookId/update"
-                    element={<UpdateBookPage />}
+                    element={
+                        <ProtectedRoute auth>
+                            <UpdateBookPage />
+                        </ProtectedRoute>
+                    }
                 />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
+                <Route
+                    path="/login"
+                    element={
+                        <ProtectedRoute auth={false}>
+                            <Login />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/signup"
+                    element={
+                        <ProtectedRoute auth={false}>
+                            <Signup />
+                        </ProtectedRoute>
+                    }
+                />
             </Routes>
         </div>
     );

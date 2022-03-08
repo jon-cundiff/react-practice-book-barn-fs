@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import BookDetailsForm from "./BookDetailsForm";
@@ -24,12 +24,6 @@ const AddBookPage = () => {
             navigate("/");
         }
     };
-
-    useEffect(() => {
-        if (!user) {
-            navigate("/");
-        }
-    }, [user, navigate]);
 
     return (
         <div className="form-container">

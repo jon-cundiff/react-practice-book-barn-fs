@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import BookItems from "./BookItems";
 
@@ -9,17 +8,11 @@ import { getUserBooks, updateEmail } from "../../store/actions/actionCreators";
 const Profile = () => {
     const user = useSelector((state) => state.auth.user);
     const books = useSelector((state) => state.books.userBooks);
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState(user.email);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user) {
-            navigate("/");
-        } else {
-            setEmail(user.email);
-            dispatch(getUserBooks(user.token));
-        }
+        dispatch(getUserBooks(user.token));
     }, []);
 
     const handleEmailTextChange = (e) => {
